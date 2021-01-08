@@ -1,0 +1,62 @@
+<h2>Boards</h2>
+<hello></hello>
+<div class="board">
+	<div class="lane lane-1" cdkDropList #todo="cdkDropList" [cdkDropListData]="toDoList"
+		[cdkDropListConnectedTo]="[inProgress]" (cdkDropListDropped)="drop($event)">
+		<div class="heading todo">To Do</div>
+				<div *ngFor="let item of toDoList; let ii = index" class="task" [ngClass]="{'priorityHigh': item.priority == 'High', 'priorityMedium': item.priority == 'Medium', 'priorityLow': item.priority == 'Low'}" cdkDrag>
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<p class="card-text" style="margin:0px">{{item.title}} </p>
+					<p>{{item.updateTime}}
+            
+						<i class="far fa-edit" style="float:right"></i>
+						<i class="far fa-trash-alt" style="float:right;padding-right:8px;color:blue" (click)="trash(toDoList,ii)"></i>
+					</p>
+				</div> <!-- card body -->
+			</div> <!-- card -->
+
+		</div>
+	</div>
+
+	<div class="lane lane-2" cdkDropList #inProgress="cdkDropList" [cdkDropListData]="inProgressList"
+		[cdkDropListConnectedTo]="[todo,done]" (cdkDropListDropped)="drop($event)">
+		<div class="heading doing">In Progress</div>
+		<div *ngFor="let item of inProgressList ; let ii = index" class="task" [ngClass]="{'priorityHigh': item.priority == 'High', 'priorityMedium': item.priority == 'Medium', 'priorityLow': item.priority == 'Low'}" cdkDrag>
+
+
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<p class="card-text" style="margin:0px">{{item.title}} </p>
+					<p>{{item.updateTime}}
+						<i class="far fa-edit" style="float:right"></i>
+						<i class="far fa-trash-alt" style="float:right;padding-right:8px;color:blue" (click)="trash(inProgressList,ii)"></i>
+					</p>
+				</div> <!-- card body -->
+			</div> <!-- card -->
+
+
+		</div>
+	</div>
+
+	<div class="lane lane-2" cdkDropList #done="cdkDropList" [cdkDropListData]="doneList"
+		[cdkDropListConnectedTo]="[todo, inProgress]" (cdkDropListDropped)="drop($event)">
+		<div class="heading done">Done</div>
+				<div *ngFor="let item of doneList; let ii=index" class="task" [ngClass]="{'priorityHigh': item.priority == 'High', 'priorityMedium': item.priority == 'Medium', 'priorityLow': item.priority == 'Low'}" cdkDrag>
+
+
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<p class="card-text" style="margin:0px">{{item.title}} </p>
+					<p>{{item.updateTime}}
+						<i class="far fa-edit" style="float:right"></i>
+						<i class="far fa-trash-alt" style="float:right;padding-right:8px;color:blue" (click)="trash(doneList,ii)"></i>
+					</p>
+				</div> <!-- card body -->
+			</div> <!-- card -->
+
+
+    </div>
+	</div>
+
+</div>
